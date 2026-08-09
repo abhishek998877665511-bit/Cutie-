@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday!</title>
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: radial-gradient(circle, #4a0e4e, #1a052e);
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .title-text {
+    color: #fff;
+    font-size: 40px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 15px #ff007f, 0 0 30px #00d2ff;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 3px;
+  }
+
+  .start-btn {
+    background: linear-gradient(135deg, #ff007f, #7f00ff);
+    border: none;
+    padding: 20px 50px;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 20px #ff007f;
+    transition: transform 0.2s, box-shadow 0.2s;
+    z-index: 10;
+  }
+
+  .start-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px #ff007f, 0 0 50px #7f00ff;
+  }
+
+  .question-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .question-text {
+    color: #fff;
+    font-size: 32px;
+    margin-bottom: 40px;
+    text-shadow: 0 0 15px #ff007f, 0 0 30px #7f00ff;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn {
+    padding: 15px 40px;
+    font-size: 22px;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    color: #fff;
+    transition: box-shadow 0.2s;
+  }
+
+  .btn-yes {
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    box-shadow: 0 0 15px #4CAF50;
+  }
+
+  .btn-no {
+    background: linear-gradient(135deg, #f44336, #c62828);
+    box-shadow: 0 0 15px #f44336;
+  }
+
+  .content {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    animation: reveal 1.5s forwards cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .heart {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    animation: heartbeat 1.4s infinite alternate ease-in-out;
+  }
+
+  .heart::before,
+  .heart::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 50px;
+    height: 80px;
+    border-radius: 50px 50px 0 0;
+    background: linear-gradient(135deg, #ff007f, #7f00ff);
+    box-shadow: 0 0 20px #ff007f, 0 0 40px #7f00ff;
+  }
+
+  .heart::before {
+    left: 50px;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+  }
+
+  .heart::after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+  }
+
+  .love-text {
+    color: #fff;
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 0 0 10px #ff007f, 0 0 20px #7f00ff;
+    letter-spacing: 3px;
+    animation: glowText 2s infinite alternate ease-in-out;
+  }
+
+  @keyframes reveal {
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes heartbeat {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.15); }
+  }
+  @keyframes glowText {
+    0% { text-shadow: 0 0 5px #ff007f, 0 0 10px #7f00ff; }
+    100% { text-shadow: 0 0 20px #ff007f, 0 0 40px #7f00ff; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="title-text" id="mainTitle">Happy Birthday Cutie!</div>
+  <button class="start-btn" id="startBtn">Get Started</button>
+
+  <div class="question-container" id="questionContainer">
+    <div class="question-text">Do you love me?</div>
+    <div class="buttons">
+      <button class="btn btn-yes" id="yesBtn">Yes</button>
+      <button class="btn btn-no" id="noBtn">No</button>
+    </div>
+  </div>
+
+  <div class="content" id="finalContent">
+    <div class="heart"></div>
+    <div class="love-text">Happy Birthday!</div>
+  </div>
+
+  <script>
+    const mainTitle = document.getElementById("mainTitle");
+    const startBtn = document.getElementById("startBtn");
+    const questionContainer = document.getElementById("questionContainer");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const finalContent = document.getElementById("finalContent");
+
+    const userName = "Cutie";
+
+    mainTitle.textContent = `Happy Birthday ${userName}!`;
+
+    startBtn.addEventListener("click", () => {
+      startBtn.style.display = "none";
+      questionContainer.style.display = "flex";
+    });
+
+    const moveNoButton = () => {
+      const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+      const randomX = Math.max(10, Math.floor(Math.random() * maxX));
+      const randomY = Math.max(10, Math.floor(Math.random() * maxY));
+
+      noBtn.style.position = "absolute";
+      noBtn.style.left = randomX + "px";
+      noBtn.style.top = randomY + "px";
+    };
+
+    noBtn.addEventListener("mouseover", moveNoButton);
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveNoButton();
+    });
+
+    yesBtn.addEventListener("click", () => {
+      questionContainer.style.display = "none";
+      finalContent.style.display = "flex";
+    });
+  </script>
+
+</body>
+</html>
+
